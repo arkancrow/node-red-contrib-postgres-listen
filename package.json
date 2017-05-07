@@ -1,0 +1,28 @@
+{
+  "name": "node-red-contrib-postgres-listen",
+  "version": "0.1.0",
+  "description": "A Node-RED node to listen to pg_notify",
+  "dependencies": {
+    "pg": "6.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arkancrow/node-red-contrib-postgres-listen"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "node-red",
+    "postgres",
+    "postgresql",
+    "pg_notify"
+  ],
+  "node-red": {
+    "nodes": {
+      "PostgreSQLListen": "pglisten.js"
+    }
+  },
+  "author": {
+    "name": "Vincent Schoonenburg",
+    "email": "arkancrow@gmail.com"
+  }
+}
