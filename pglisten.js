@@ -82,21 +82,6 @@ module.exports = function(RED) {
     }
 
 
-    function PostgresDatabaseNode(n) {
-        RED.nodes.createNode(this,n);
-        this.hostname = n.hostname;
-        this.port = n.port;
-        this.db = n.db;
-        this.ssl = n.ssl;
-        this.connectionString = n.connectionstring;
-
-        var credentials = this.credentials;
-        if (credentials) {
-            this.user = credentials.user;
-            this.password = credentials.password;
-        }
-    }
-
     function PostgresArrayNode(n) {
         RED.nodes.createNode(this,n);
 
@@ -108,12 +93,6 @@ module.exports = function(RED) {
         }
     }
     try {
-        RED.nodes.registerType("postgresdb",PostgresDatabaseNode,{
-            credentials: {
-                user: {type:"text"},
-                password: {type: "password"}
-            }
-        });
         RED.nodes.registerType("postgresarray",PostgresArrayNode);
     } catch (e) {
 
