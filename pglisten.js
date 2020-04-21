@@ -25,7 +25,7 @@ module.exports = function(RED) {
         this.channel = n.channel;
         console.log(this.channel);
         var node = this;
-        var clientdb = null;
+        node.clientdb = null;
         this.status({fill:"red",shape:"ring",text:"disconnected"});
 
         if(this.postgresConfig) {
@@ -42,9 +42,9 @@ module.exports = function(RED) {
                     if (node.postgresConfig.db) { config.database = node.postgresConfig.db; }
                     config.ssl = node.postgresConfig.ssl;
                 }
-                clientdb = new pg.Client(config);
+                node.clientdb = new pg.Client(config);
 
-                clientdb.connect(function(err) {
+                node.clientdb.connect(function(err) {
                     try {
 
                         if(err) {
@@ -53,14 +53,18 @@ module.exports = function(RED) {
                         } else {
                             console.log("Connected");
                             node.status({fill:"green",shape:"dot",text:"connected"});
-                            clientdb.on('notification', function(msg) {
-                                console.log("Notification received");
-                                msg.payload = JSON.parse(msg.payload);
-                                node.log(JSON.stringify(msg));
-                                node.send(msg);
+                            node.clientdb.on('notification', function(msg) {
+                                try {
+                                    //console.log("Notification received");
+                                    msg.payload = JSON.parse(msg.payload);
+                                    //node.log(JSON.stringify(msg));
+                                    node.send(msg);
+                                } catch (error) {
+                                    node.error(error);
+                                }
                             });
                             var query = "LISTEN " + node.channel;
-                            clientdb.query(query);
+                            node.clientdb.query(query);
                             console.log("Listening to :" + node.channel);
                         }
                     } catch (error) {
