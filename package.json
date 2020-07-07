@@ -4,7 +4,7 @@
   "description": "A Node-RED node to listen to pg_notify",
   "dependencies": {
     "pg": "^6.1.5",
-    "node-red-contrib-re-postgres": "~0.1.9"
+    "node-red-contrib-re-postgres": "~0.2.2"
   },
   "repository": {
     "type": "git",
